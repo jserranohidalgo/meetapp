@@ -10,6 +10,9 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext
 import play.api.libs.concurrent.Akka
 
+import com.hablapps.funplay._
+import scalaz.{Store=>ScalazStore, _}, Scalaz._
+
 import org.hablapps.meetup.{domain, db, logic}, 
   logic._,
   db._,
@@ -33,7 +36,7 @@ object MembersAsync extends Controller{
   def interpreter[U]: Store[U] => Future[Either[StoreError, U]] = 
     MySQLInterpreter.runAsync[U](_)(blocking_ec)
   
-  def toHTTP(response: Future[Either[StoreError, Either[JoinRequest, Member]]]): Future[Result] =
+  def toHTTP(response: Future[Either[StoreError, JoinResponse]]): Future[Result] =
     response.map(toHTTP_plain)(default_ec)
 
 }

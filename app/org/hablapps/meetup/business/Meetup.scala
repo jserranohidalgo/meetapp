@@ -4,7 +4,7 @@ package object logic{
   import db._, Store._
   import domain._
 
-  def join(request: JoinRequest): Store[Either[JoinRequest, Member]] = {
+  def join(request: JoinRequest): Store[JoinResponse] = {
     val JoinRequest(_, uid, gid) = request
     for{
       user <- Store.getUser(uid)
@@ -17,7 +17,7 @@ package object logic{
     } yield joinOrMember
   }
 
-  def joinWithMonadAndUnlessAndIf(request: JoinRequest): Store[Either[JoinRequest, Member]] = {
+  def joinWithMonadAndUnlessAndIf(request: JoinRequest): Store[JoinResponse] = {
     val JoinRequest(_, uid, gid) = request
     Store.getUser(uid) flatMap { user =>
       Store.getGroup(gid) flatMap { 
@@ -31,7 +31,7 @@ package object logic{
     }
   }
 
-  def joinWithMonadAndUnless(request: JoinRequest): Store[Either[JoinRequest, Member]] = {
+  def joinWithMonadAndUnless(request: JoinRequest): Store[JoinResponse] = {
     val JoinRequest(_, uid, gid) = request
     Store.getUser(uid) flatMap { user =>
       Store.getGroup(gid) flatMap { 
@@ -49,7 +49,7 @@ package object logic{
     }
   }
 
-  def joinWithMonad(request: JoinRequest): Store[Either[JoinRequest, Member]] = {
+  def joinWithMonad(request: JoinRequest): Store[JoinResponse] = {
     val JoinRequest(_, uid, gid) = request
     Store.getUser(uid) flatMap { user =>
       Store.getGroup(gid) flatMap { group =>
@@ -75,7 +75,7 @@ package object logic{
     }
   }
 
-  def joinPlain(request: JoinRequest): Store[Either[JoinRequest, Member]] = {
+  def joinPlain(request: JoinRequest): Store[JoinResponse] = {
     val JoinRequest(_, uid, gid) = request
     GetUser(uid, user =>
       GetGroup(gid, group =>
@@ -101,7 +101,7 @@ package object logic{
     )
   }
 
-  def joinWithForAndUnless(request: JoinRequest): Store[Either[JoinRequest, Member]] = {
+  def joinWithForAndUnless(request: JoinRequest): Store[JoinResponse] = {
     val JoinRequest(_, uid, gid) = request
     for {
       user <- Store.getUser(uid) 
@@ -119,7 +119,7 @@ package object logic{
     } yield joinOrMember
   }
 
-  def joinWithFor(request: JoinRequest): Store[Either[JoinRequest, Member]] = {
+  def joinWithFor(request: JoinRequest): Store[JoinResponse] = {
     val JoinRequest(_, uid, gid) = request
     for {
       user <- Store.getUser(uid) 

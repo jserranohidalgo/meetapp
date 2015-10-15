@@ -15,7 +15,7 @@ case class PutMember[U](id: Member, next: Member => Store[U]) extends Store[U]
 case class Return[U](t: U) extends Store[U]
 case class Fail(error: StoreError) extends Store[Nothing]
 
-sealed class StoreError(val msg: String)
+sealed class StoreError(val msg: String) extends RuntimeException
 
 case class NonExistentEntity(id: Int) extends StoreError(s"Non-existent entity $id")
 case class ConstraintFailed(constraint: Store[Boolean]) extends StoreError(s"Constraint failed: $constraint")

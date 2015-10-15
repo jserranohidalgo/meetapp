@@ -31,7 +31,7 @@ object Members extends Controller{
   def fromHTTP(gid: Int): Request[Int] => JoinRequest = 
     request => JoinRequest(None, request.body, gid)
 
-  def toHTTP(response: Either[StoreError, Either[JoinRequest, Member]]): Result = 
+  def toHTTP(response: Either[StoreError, JoinResponse]): Result = 
     response fold(
       error => error match {
         case error@NonExistentEntity(id) => 

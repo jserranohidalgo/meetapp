@@ -21,5 +21,7 @@ libraryDependencies ++= Seq(
   // "com.h2database" % "h2" % "1.3.170",
   "mysql" % "mysql-connector-java" % "5.1.26",
   "org.scala-lang" % "scala-compiler" % scalaVersion.value,
-  "org.scalaz" %% "scalaz-core" % "7.1.1"
+  "com.hablapps" %% "funplay" % "0.1-SNAPSHOT"
 )
+
+libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.2.0-M3"
